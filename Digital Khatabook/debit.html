@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Khatabook</title>
+    <link rel="stylesheet" href="MainDesign.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
+     rel='stylesheet'>
+     <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <i class="bx bx-menu menu-icon"></i>
+            <span class="logo-name">Digital Khatabook</span>
+            <a href="profile.html">
+            <span class="profile"><i class="fas fa-user"></i> Profile</span></a>
+        </div>
+
+        <div class="sidebar">
+            <div class="logo">
+            <i class="bx bx-menu menu-icon"></i>
+            <span class="logo-name">Digital Khatabook</span>
+        </div>
+
+        <div class="sidebar-content">
+          <ul class="lists">
+              <li class="list">
+                  <a href="MainPage.html" class="nav-link">
+                      <i class="bx bx-home-alt icon"></i>
+                      <span class="link">Dashboard</span>
+                  </a>
+              </li>
+              
+              <li class="list">
+                  <a href="new.html" class="nav-link">
+                      <i class='bx bxs-folder-plus icon'></i>
+                      <span class="link">Add New Transaction</span>
+                  </a>
+              </li>
+              
+              <li class="list">
+                  <a href="debit.html" class="nav-link">
+                      <i class='bx bxs-folder-minus icon' ></i>
+                      <span class="link">Transactions</span>
+
+                  </a>
+              </li>
+
+              <li class="list">
+                  <a href="about.html" class="nav-link">
+                      <i class='bx bxs-message-dots icon' ></i>
+                      <span class="link">About Us</span>
+                  </a>
+              </li>
+          </ul>
+
+             <div class="bottom-content">
+              <li class="list">
+                  <a href="" class="nav-link">
+                      <i class='bx bx-log-out-circle icon' ></i>
+                      <input class="linkbut" value="logout" type="button" onclick="logout()">
+                  </a>
+                
+              </li>
+
+          
+      </div>
+    </nav>
+
+    <section class="overlay"></section>
+
+    <script>
+      const navBar = document.querySelector("nav"),
+        menuBtns = document.querySelectorAll(".menu-icon"),
+        overlay = document.querySelector(".overlay");
+
+      menuBtns.forEach((menuBtn) => {
+        menuBtn.addEventListener("click", () => {
+          navBar.classList.toggle("open");
+        });
+      });
+
+      overlay.addEventListener("click", () => {
+        navBar.classList.remove("open");
+      });
+    </script>
+    
+    
+    <section class="container">
+        <header>Debit Transactions</header>
+        <form class="form">
+          
+          
+        </form>
+        <p id="display_read_data">Before: <'empty'></p>
+        <!-- <div id="showUsers"></div> -->
+      </section>
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+   import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+   import {
+    getAuth,
+    signOut,
+    onAuthStateChanged,
+  } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+  // import firebase from 'firebase/compat/app';
+const firebaseConfig = {
+  apiKey: "AIzaSyBRcKHJnard8B0iWp87ZiGemktBj765uHY",
+authDomain: "digital-khatabook.firebaseapp.com",
+projectId: "digital-khatabook",
+storageBucket: "digital-khatabook.appspot.com",
+messagingSenderId: "663617842018",
+appId: "1:663617842018:web:08abfac3524b9a5b365a3b",
+measurementId: "G-X5PKFSW6WB"
+};
+
+
+
+
+
+     const app = initializeApp(firebaseConfig);
+
+     const db = getDatabase(app);
+
+ 
+
+
+    var connect_db = ref(db, 'email1');
+    var retrieve_data='';
+    onValue(connect_db, (snapshot) => {
+        retrieve_data = snapshot.val();
+        call_loop_print(retrieve_data);
+        document.getElementById("display_read_data").innerHTML =  "<pre>" + "ID: " + retrieve_data.id +
+                '\n' + "Name: " + retrieve_data.username + '\n' + "Amount: " + retrieve_data.amount +"</pre>";
+        })
+        
+    function call_loop_print(retrieve_data){
+        for (var r=0;r<Object.entries(retrieve_data).length;r++){
+            var key = Object.keys(retrieve_data)[r];
+            var value = retrieve_data[key];
+            // console.log("Key_" + r + ': ' + key + " Value_:" + r + ': ' + value );
+           }
+ }
+
+
+    
+      </script>
+  </body>
+</html>

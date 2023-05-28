@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Khatabook</title>
+  <link rel="stylesheet" href="new.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+  <script src="./JAVASCRIPT/user.js" type="module"></script>
+  <!-- <script>
+    function takevalue() {
+      var name = document.getElementById
+        ("name").value;
+
+      var id = document.getElementById
+        ("id").value;
+
+      var number = document.getElementByIdfunction takevalue() {
+    //   var name = document.getElementById
+    //     ("name").value;
+
+    //   var id = document.getElementById
+    //     ("id").value;
+
+    //   var number = document.getElementById
+    //     ("number").value;
+    //   console.log("Submitted");
+    //   alert("Sub");
+
+    //   const newData = {
+    //     name: name,
+    //     id: id,
+    //     number: number,
+    //   };
+    //   console.log(newData);
+    //   alert("submited");
+
+    //   printr();
+    // }
+        ("number").value;
+      console.log("Submitted");
+      alert("Sub");
+
+      const newData = {
+        name: name,
+        id: id,
+        number: number,
+      };
+      console.log(newData);
+      alert("submited");
+
+      printr();
+    }
+  </script> -->
+</head>
+
+<body>
+  <nav>
+    <div class="logo">
+      <i class="bx bx-menu menu-icon"></i>
+      <span class="logo-name">Digital Khatabook</span>
+      <a href="profile.html">
+        <span class="profile"><i class="fas fa-user"></i> Profile</span></a>
+    </div>
+
+    <div class="sidebar">
+      <div class="logo">
+        <i class="bx bx-menu menu-icon"></i>
+        <span class="logo-name">Digital Khatabook</span>
+      </div>
+
+      <div class="sidebar-content">
+        <ul class="lists">
+          <li class="list">
+            <a href="MainPage.html" class="nav-link">
+              <i class="bx bx-home-alt icon"></i>
+              <span class="link">Dashboard</span>
+            </a>
+          </li>
+
+          <li class="list">
+            <a href="new.html" class="nav-link">
+              <i class='bx bxs-folder-plus icon'></i>
+              <span class="link">Add New Transaction</span>
+            </a>
+          </li>
+
+          <li class="list">
+            <a href="debit.html" class="nav-link">
+              <i class='bx bxs-folder-minus icon'></i>
+              <span class="link">Transactions</span>
+
+            </a>
+          </li>
+
+          
+
+          <li class="list">
+            <a href="about.html" class="nav-link">
+              <i class='bx bxs-message-dots icon'></i>
+              <span class="link">About Us</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="bottom-content">
+          <li class="list">
+            <a href="" class="nav-link">
+              <i class='bx bx-log-out-circle icon'></i>
+              <input class="linkbut" value="logout" type="button" onclick="logout()">
+            </a>
+            <!-- <div style="text-align: right">
+                      <input type="button" value="logout" class="btn"  onclick="logout()" id="logo">
+                  </div> -->
+          </li>
+
+
+        </div>
+  </nav>
+
+  <section class="overlay"></section>
+
+  <script>
+    const navBar = document.querySelector("nav"),
+      menuBtns = document.querySelectorAll(".menu-icon"),
+      overlay = document.querySelector(".overlay");
+
+    menuBtns.forEach((menuBtn) => {
+      menuBtn.addEventListener("click", () => {
+        navBar.classList.toggle("open");
+      });
+    });
+
+    overlay.addEventListener("click", () => {
+      navBar.classList.remove("open");
+    });
+  </script>
+
+
+  <section class="container">
+    <header>New Customer</header>
+    <form onsubmit="return takevalue()" class="form">
+      <div class="input-box">
+        <label>Full Name</label>
+        <input type="text" placeholder="Enter full name" name="first name" id="name" required >
+      </div>
+
+      <div class="input-box">
+        <label>New Customer ID</label>
+        <input type="text" placeholder="Enter New Customer ID" id="id" required >
+      </div>
+
+
+      <div class="input-box">
+        <label>Phone Number</label>
+        <input type="number" placeholder="Enter phone number" id="number" required>
+      </div>
+      <div class="input-box">
+        <label>Amount ₹</label>
+        <input type="number" placeholder="Enter Credit Amount" id="amount" required>
+      </div>
+      </div>
+
+      <div class="input-box">
+        <label>Transaction Type</label>
+        <input type="checkbox" class="check" id="debitc" placeholder="" />
+        <label>Debit</label>
+        <input type="checkbox" class="check" id="creditc" placeholder="" />
+        <label>Credit</label>
+      </div>
+
+      </div>
+
+
+      <div class="input-box">
+        <label>Comment (Optional)</label>
+        <input type="text" placeholder="Enter any comment about Customer" />
+      </div>
+
+      <div class="input-box address">
+        <label>Address (Optional)</label>
+        <input type="text" placeholder="Enter street address" required />
+        <input type="text" placeholder="Enter street address line 2" required />
+      </div>
+      <br>
+      <br>
+
+
+      <input type="submit" value="submit" class="sub" id="submit">
+    </form>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+   import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+   import {
+    getAuth,
+    signOut,
+    onAuthStateChanged,
+  } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBRcKHJnard8B0iWp87ZiGemktBj765uHY",
+authDomain: "digital-khatabook.firebaseapp.com",
+projectId: "digital-khatabook",
+storageBucket: "digital-khatabook.appspot.com",
+messagingSenderId: "663617842018",
+appId: "1:663617842018:web:08abfac3524b9a5b365a3b",
+measurementId: "G-X5PKFSW6WB"
+};
+
+// Initialize Firebase
+   const app = initializeApp(firebaseConfig);
+
+//get ref to database services
+    const db = getDatabase(app);
+    const auth = getAuth();
+    const user = auth.currentUser;
+    // const email=auth.currentUser.email;
+    // console.log(email);
+    document.getElementById("submit").addEventListener('click', function(e){
+     var id=document.getElementById("id").value;
+     var username=document.getElementById("name").value;
+     var amount=document.getElementById("amount").value;
+     var phone=document.getElementById("number").value;
+     if((id!="")&&(username!="")&&(amount!="")&&(phone!="")){
+      e.preventDefault();
+      console.log();
+     set(ref(db, 'email' + document.getElementById("id").value),
+     {
+       id: document.getElementById("id").value,
+       username: document.getElementById("name").value,
+       amount: document.getElementById("amount").value
+
+     });
+       alert("Added Successfully !");
+     } 
+     else{
+      alert("All Entries Required");
+     }
+    })
+</script>
+    
+    <!-- <script src="./JAVASCRIPT/user.js"></script> -->
+  </section>
+</body>
+
+</html>
